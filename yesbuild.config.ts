@@ -4,7 +4,9 @@ yesbuild.defineTask('default', function* () {
 	return useEsBuild({
 		entryPoints: ['src/index.tsx'],
 		bundle: true,
-		platform: 'browser'
+		format: 'esm',
+		platform: 'browser',
+		splitting: true
 	});
 });
 

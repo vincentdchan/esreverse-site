@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
 import { Global, css } from '@emotion/react';
+
+// mock for Codemirror
+// Codemirror depends on a 'global' variable
+(window as any).global = window;
 
 const AppContainer = styled.div`
   font-family: -apple-system,system-ui,Source Sans Pro,Roboto,Helvetica,Helvetica Neue,Source Han Sans SC,Source Han Sans TC,PingFang SC,PingFang HK,PingFang TC,sans-serif;
@@ -141,34 +145,44 @@ function MainHeader() {
   )
 }
 
+const Preview = React.lazy(() => import('./preview'));
+
 function MainBody() {
   return (
-    <BodyContainer>
-      <Paragraph>
-        <SubTitle>Feature</SubTitle>
-        <ul>
-          <li>Automatically trace JavaScripts from HTML.</li>
-          <li>Format JavaScripts files.</li>
-          <li>API similar to cURL.</li>
-          <li>Reverse <b>generator/async/await</b> syntaxes.</li>
-        </ul>
-      </Paragraph>
-      <Paragraph>
-        <SubTitle>Install</SubTitle>
-        <CodeBlock>
-          npm install -g esreverse
-        </CodeBlock>
-      </Paragraph>
-      <Paragraph>
-        <SubTitle>Platform</SubTitle>
-        <ul>
-          <li>macOS x64/arm64</li>
-          <li>Linux x64</li>
-          <li>Web</li>
-        </ul>
-      </Paragraph>
-      <Footer>Built with <a href="https://github.com/vincentdchan/yesbuild">Yesbuild</a>. Copyright 2021.</Footer>
-    </BodyContainer>
+    <>
+      <BodyContainer>
+        <Paragraph>
+          <SubTitle>Feature</SubTitle>
+          <ul>
+            <li>Automatically trace JavaScripts from HTML.</li>
+            <li>Format JavaScripts files.</li>
+            <li>API similar to cURL.</li>
+            <li>Reverse <b>generator/async/await</b> syntaxes.</li>
+            <li>Reveres <b>JSX</b> syntaxes</li>
+          </ul>
+        </Paragraph>
+      </BodyContainer>
+      <Suspense fallback={<div></div>}>
+        <Preview />
+      </Suspense>
+      <BodyContainer>
+        <Paragraph>
+          <SubTitle>Install</SubTitle>
+          <CodeBlock>
+            npm install -g esreverse
+          </CodeBlock>
+        </Paragraph>
+        <Paragraph>
+          <SubTitle>Platform</SubTitle>
+          <ul>
+            <li>macOS x64/arm64</li>
+            <li>Linux x64</li>
+            <li>Web</li>
+          </ul>
+        </Paragraph>
+        <Footer>Built with <a href="https://github.com/vincentdchan/yesbuild">Yesbuild</a>. Copyright 2021.</Footer>
+      </BodyContainer>
+    </>
   )
 }
 
