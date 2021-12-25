@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
 import { Global, css } from '@emotion/react';
@@ -45,6 +45,12 @@ const CodeBlock = styled.div`
   background: #1a1a1a;
   border-radius: 18px;
   color: #e1e1e1;
+  transition: height 1s;
+
+  pre {
+    margin: 0px;
+    font-size: 16px;
+  }
 `;
 
 const HeaderContainer = styled.div`
@@ -52,17 +58,84 @@ const HeaderContainer = styled.div`
   background-size: 5rem;
 `;
 
+const examples = [
+  'esreverse https://mui.com/ -a',
+  'esreverse https://mui.com/ -a -H "cookies: SESSION=abc"',
+  'esreverse ./test.js'
+];
+
+const detailMessage = `esreverse <entry> [args]
+Vincent Chan<okcdz@diverse.space>
+
+-a, --aggressive  Reverse in aggressive mode
+--no-emit         Do NOT emit files
+--dist, -D <dir>  Dirs to emit
+--worker          Run in workder mode
+-H header         Add headers to http requests
+-h, --help        Show help message`;
+
+function PlayingCodeBlock() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let innterCount = 0;
+    const ticket = setInterval(() => {
+      setCount(innterCount++);
+    }, 3000);
+
+    return () => clearInterval(ticket);
+  }, []);
+
+  return (
+    <CodeBlock>
+      <pre>
+        {examples[count % examples.length]}
+      </pre>
+    </CodeBlock>
+  )
+}
+
+function DetailCodeBlock() {
+  const [ showDetail, setShowDetail ] = useState(false);
+  useEffect(() => {
+    const ticket = setTimeout(() => {
+      setShowDetail(true);
+    }, 1000);
+
+    return () => clearTimeout(ticket);
+  }, []);
+
+  return (
+    <CodeBlock>
+      <pre>
+        {showDetail ? detailMessage : `esreverse <entry> [args]`}
+      </pre>
+    </CodeBlock>
+  )
+}
+
+function MainCodeBlock() {
+  const [ isHover, setIsHover ] = useState(false);
+  
+  return (
+    <CodeBlockContainer
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+    >
+      {isHover ?
+        <DetailCodeBlock />
+        : <PlayingCodeBlock />
+      }
+    </CodeBlockContainer>
+  );
+}
+
 function MainHeader() {
   return (
     <HeaderContainer>
       <BigTitleContainer>
         Esreverse is a reverse engineer tool for Web
       </BigTitleContainer>
-      <CodeBlockContainer>
-        <CodeBlock>
-          {`esreverse <url>`}
-        </CodeBlock>
-      </CodeBlockContainer>
+      <MainCodeBlock />
       <div style={{ height: '2rem' }} />
     </HeaderContainer>
   )
@@ -76,6 +149,7 @@ function MainBody() {
         <ul>
           <li>Automatically trace JavaScripts from HTML.</li>
           <li>Format JavaScripts files.</li>
+          <li>API similar to cURL.</li>
           <li>Reverse <b>generator/async/await</b> syntaxes.</li>
         </ul>
       </Paragraph>
