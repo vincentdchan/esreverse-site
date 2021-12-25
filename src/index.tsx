@@ -15,8 +15,18 @@ const BodyContainer = styled.div`
 `;
 
 const BigTitleContainer = styled.h1`
-  margin-top: 3rem;
+  padding-top: 5rem;
   text-align: center;
+`;
+
+const SubTitle = styled.h2`
+`;
+
+const Paragraph = styled.div`
+`
+
+const Footer = styled.div`
+  margin-top: 36px;
 `;
 
 const CodeBlockContainer = styled.div`
@@ -37,9 +47,14 @@ const CodeBlock = styled.div`
   color: #e1e1e1;
 `;
 
-function MainBody() {
+const HeaderContainer = styled.div`
+  background: url('./bg.png');
+  background-size: 5rem;
+`;
+
+function MainHeader() {
   return (
-    <BodyContainer>
+    <HeaderContainer>
       <BigTitleContainer>
         Esreverse is a reverse engineer tool for Web
       </BigTitleContainer>
@@ -48,6 +63,37 @@ function MainBody() {
           {`esreverse <url>`}
         </CodeBlock>
       </CodeBlockContainer>
+      <div style={{ height: '2rem' }} />
+    </HeaderContainer>
+  )
+}
+
+function MainBody() {
+  return (
+    <BodyContainer>
+      <Paragraph>
+        <SubTitle>Feature</SubTitle>
+        <ul>
+          <li>Automatically trace JavaScripts from HTML.</li>
+          <li>Format JavaScripts files.</li>
+          <li>Reverse <b>generator/async/await</b> syntaxes.</li>
+        </ul>
+      </Paragraph>
+      <Paragraph>
+        <SubTitle>Install</SubTitle>
+        <CodeBlock>
+          npm install -g esreverse
+        </CodeBlock>
+      </Paragraph>
+      <Paragraph>
+        <SubTitle>Platform</SubTitle>
+        <ul>
+          <li>macOS x64/arm64</li>
+          <li>Linux x64</li>
+          <li>Web</li>
+        </ul>
+      </Paragraph>
+      <Footer>Built with <a href="https://github.com/vincentdchan/yesbuild">Yesbuild</a>. Copyright 2021.</Footer>
     </BodyContainer>
   )
 }
@@ -61,8 +107,18 @@ function App() {
             margin: 0px;
             background-color: #3e036a;
           }
+          a {
+            color: white;
+          }
+          a:active {
+            color: white;
+          }
+          h1 {
+            margin-top: 0px;
+          }
         `}
       />
+      <MainHeader />
       <MainBody />
     </AppContainer>
   );
