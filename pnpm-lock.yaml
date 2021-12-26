@@ -4,10 +4,12 @@ specifiers:
   '@babel/core': ^7.16.5
   '@emotion/react': ^11.7.1
   '@emotion/styled': ^11.6.0
+  '@types/lodash-es': ^4.17.5
   '@types/react': ^17.0.38
   '@types/react-dom': ^17.0.11
   codemirror: ^5.65.0
-  esreverse-web: 0.0.4
+  esreverse-web: 0.0.6
+  lodash-es: ^4.17.21
   react: ^17.0.2
   react-codemirror2: ^7.2.1
   react-dom: ^17.0.2
@@ -17,10 +19,12 @@ devDependencies:
   '@babel/core': 7.16.5
   '@emotion/react': 11.7.1_b0bf9f023f082854c155a9ba9dc17441
   '@emotion/styled': 11.6.0_fa83bf835a5aaccc776a0013ff4e4610
+  '@types/lodash-es': 4.17.5
   '@types/react': 17.0.38
   '@types/react-dom': 17.0.11
   codemirror: 5.65.0
-  esreverse-web: 0.0.4
+  esreverse-web: 0.0.6
+  lodash-es: 4.17.21
   react: 17.0.2
   react-codemirror2: 7.2.1_codemirror@5.65.0+react@17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -361,6 +365,16 @@ packages:
 
   /@emotion/weak-memoize/0.2.5:
     resolution: {integrity: sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==}
+    dev: true
+
+  /@types/lodash-es/4.17.5:
+    resolution: {integrity: sha512-SHBoI8/0aoMQWAgUHMQ599VM6ZiSKg8sh/0cFqqlQQMyY9uEplc0ULU5yQNzcvdR4ZKa0ey8+vFmahuRbOCT1A==}
+    dependencies:
+      '@types/lodash': 4.14.178
+    dev: true
+
+  /@types/lodash/4.14.178:
+    resolution: {integrity: sha512-0d5Wd09ItQWH1qFbEyQ7oTQ3GZrMfth5JkbN3EvTKLXcHLRDSXeLnlvlOn0wvxVIwK5o2M8JzP/OWz7T3NRsbw==}
     dev: true
 
   /@types/parse-json/4.0.0:
@@ -751,8 +765,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /esreverse-web/0.0.4:
-    resolution: {integrity: sha512-eobbYsb1WMfJALBDsv5dUHXkLMRWy/whcLyltxtFtasFhGPwXZu94OKd3PoEBJlqnPSsP9olbHo83uWxanhdqg==}
+  /esreverse-web/0.0.6:
+    resolution: {integrity: sha512-nxE4/pBkOLqAq6OB9BJe9LQQNU3gzeSWBCn+DECxKz143/evZIGb9d56TOF/tH/jBweFoZX0XuqMcr9yvvx61A==}
     dev: true
 
   /fill-range/7.0.1:
@@ -884,6 +898,10 @@ packages:
 
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+    dev: true
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: true
 
   /loose-envify/1.4.0:

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { PureComponent } from 'react';
 import { UnControlled as CodeMirror, Controlled as ControlledCodeMirror } from 'react-codemirror2';
 import styled from '@emotion/styled';
 import * as rjs from 'esreverse-web';
+import { debounce } from 'lodash-es';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/ayu-dark.css';
 import 'codemirror/mode/javascript/javascript';
@@ -16,6 +17,8 @@ const PreviewCell = styled.div`
   padding-left: 8px;
   padding-right: 8px;
   width: 48%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const PreviewLeft = styled(PreviewCell)`
@@ -32,47 +35,99 @@ const CodeMirrorOutline = styled.div`
   border-radius: 16px;
 `;
 
+const ErrorPanelContainer = styled(CodeMirrorOutline)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background: #780c51;
+`;
+
 const theme = 'ayu-dark';
 
-function Preview() {
-  const [content, setContent] = useState('');
+interface PreviewState {
+  content: string;
+  errorMsg: string | null;
+}
 
+
+export function ErrorPanel(props: { message: string }) {
   return (
-    <PreviewContainer>
-      <PreviewLeft>
-        <p>Before</p>
-        <CodeMirrorOutline>
-          <CodeMirror
-            value="console.log('hello world')"
-            options={{
-              mode: 'javascript',
-              theme,
-              lineNumbers: true,
-            }}
-            onChange={(editor, data, value) => {
-              setContent(rjs.reverse(value));
-            }}
-          />
-        </CodeMirrorOutline>
-      </PreviewLeft>
-      <PreviewRight>
-        <p>After</p>
-        <CodeMirrorOutline>
-          <ControlledCodeMirror
-            value={content}
-            options={{
-              mode: 'javascript',
-              theme,
-              lineNumbers: true,
-            }}
-            onBeforeChange={(editor, data, value) => {
-              setContent(value);
-            }}
-          />
-        </CodeMirrorOutline>
-      </PreviewRight>
-    </PreviewContainer>
+    <ErrorPanelContainer>
+      {props.message}
+    </ErrorPanelContainer>
   );
 }
 
-export default React.memo(Preview);
+class Preview extends PureComponent<{}, PreviewState> {
+
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      content: '',
+      errorMsg: null,
+    };
+  }
+
+  computeReverse = debounce((content: string) => {
+    let result = '';
+    try {
+      result = rjs.reverse(content);
+      this.setState({
+        content: result,
+        errorMsg: null,
+      });
+    } catch (err) {
+      this.setState({
+        errorMsg: err.toString(),
+      });
+    }
+  }, 200);
+
+  render() {
+    return (
+      <PreviewContainer>
+        <PreviewLeft>
+          <p>Before</p>
+          <CodeMirrorOutline>
+            <CodeMirror
+              value="console.log('hello world')"
+              options={{
+                mode: 'javascript',
+                theme,
+                lineNumbers: true,
+              }}
+              onChange={(editor, data, value) => {
+                this.computeReverse(value);
+              }}
+            />
+          </CodeMirrorOutline>
+        </PreviewLeft>
+        <PreviewRight>
+          <p>After</p>
+          {this.state.errorMsg ? (
+            <ErrorPanel message={this.state.errorMsg} />
+          ) : (
+            <CodeMirrorOutline>
+              <ControlledCodeMirror
+                value={this.state.content}
+                options={{
+                  mode: 'javascript',
+                  theme,
+                  lineNumbers: true,
+                }}
+                onBeforeChange={(editor, data, value) => {
+                  this.setState({
+                    content: value,
+                  });
+                }}
+              />
+            </CodeMirrorOutline>
+          )}
+        </PreviewRight>
+      </PreviewContainer>
+    );
+  }
+}
+
+export default Preview;

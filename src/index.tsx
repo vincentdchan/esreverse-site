@@ -121,15 +121,17 @@ function MainCodeBlock() {
   const [ isHover, setIsHover ] = useState(false);
   
   return (
-    <CodeBlockContainer
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
-    >
-      {isHover ?
-        <DetailCodeBlock />
-        : <PlayingCodeBlock />
-      }
-    </CodeBlockContainer>
+    <BodyContainer>
+      <CodeBlockContainer
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
+        {isHover ?
+          <DetailCodeBlock />
+          : <PlayingCodeBlock />
+        }
+      </CodeBlockContainer>
+    </BodyContainer>
   );
 }
 
