@@ -24,6 +24,7 @@ const BigTitleContainer = styled.h1`
 `;
 
 const SubTitle = styled.h2`
+  margin-top: 2rem;
 `;
 
 const Paragraph = styled.div`
@@ -160,7 +161,6 @@ function MainBody() {
             <li>Format JavaScripts files.</li>
             <li>API similar to cURL.</li>
             <li>Reverse <b>generator/async/await</b> syntaxes.</li>
-            <li>Reveres <b>JSX</b> syntaxes</li>
           </ul>
         </Paragraph>
       </BodyContainer>

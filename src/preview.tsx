@@ -3,9 +3,11 @@ import { UnControlled as CodeMirror, Controlled as ControlledCodeMirror } from '
 import styled from '@emotion/styled';
 import * as rjs from 'esreverse-web';
 import { debounce } from 'lodash-es';
+import { Dropdown } from 'react-bootstrap';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/ayu-dark.css';
 import 'codemirror/mode/javascript/javascript';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const SidePadding = 48;
 
@@ -43,13 +45,24 @@ const ErrorPanelContainer = styled(CodeMirrorOutline)`
   background: #780c51;
 `;
 
+const PreviewTitleContainer = styled.div`
+  display: flex;
+  height: 48px;
+  align-items: center;
+`;
+
+const Title = styled.div`
+  height: 48px;
+  line-height: 48px;
+  margin-right: 12px;
+`;
+
 const theme = 'ayu-dark';
 
 interface PreviewState {
   content: string;
   errorMsg: string | null;
 }
-
 
 export function ErrorPanel(props: { message: string }) {
   return (
@@ -88,7 +101,22 @@ class Preview extends PureComponent<{}, PreviewState> {
     return (
       <PreviewContainer>
         <PreviewLeft>
-          <p>Before</p>
+          <PreviewTitleContainer>
+            <Title>
+              Before
+            </Title>
+            <Dropdown>
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                Examples
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </PreviewTitleContainer>
           <CodeMirrorOutline>
             <CodeMirror
               value="console.log('hello world')"
@@ -104,7 +132,9 @@ class Preview extends PureComponent<{}, PreviewState> {
           </CodeMirrorOutline>
         </PreviewLeft>
         <PreviewRight>
-          <p>After</p>
+          <PreviewTitleContainer>
+            <Title>After</Title>
+          </PreviewTitleContainer>
           {this.state.errorMsg ? (
             <ErrorPanel message={this.state.errorMsg} />
           ) : (
