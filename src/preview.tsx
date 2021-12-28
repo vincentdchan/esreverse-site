@@ -1,13 +1,17 @@
 import React, { PureComponent } from 'react';
+import type { Editor } from 'codemirror';
 import { UnControlled as CodeMirror, Controlled as ControlledCodeMirror } from 'react-codemirror2';
 import styled from '@emotion/styled';
 import * as rjs from 'esreverse-web';
 import { debounce } from 'lodash-es';
 import { Dropdown } from 'react-bootstrap';
+import examples from './examples';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/ayu-dark.css';
 import 'codemirror/mode/javascript/javascript';
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+const examplesKeys = Object.keys(examples)
 
 const SidePadding = 48;
 
@@ -60,6 +64,7 @@ const Title = styled.div`
 const theme = 'ayu-dark';
 
 interface PreviewState {
+  exampleKey: string;
   content: string;
   errorMsg: string | null;
 }
@@ -74,9 +79,12 @@ export function ErrorPanel(props: { message: string }) {
 
 class Preview extends PureComponent<{}, PreviewState> {
 
+  private __editor: Editor;
+
   constructor(props: {}) {
     super(props);
     this.state = {
+      exampleKey: examplesKeys[0],
       content: '',
       errorMsg: null,
     };
@@ -97,6 +105,13 @@ class Preview extends PureComponent<{}, PreviewState> {
     }
   }, 200);
 
+  __onEditorAttatched = (e: Editor) => {
+    this.__editor = e;
+    const firstValue = examples[this.state.exampleKey];
+    this.computeReverse(firstValue);
+    this.__editor.setValue(firstValue);
+  }
+
   render() {
     return (
       <PreviewContainer>
@@ -107,19 +122,19 @@ class Preview extends PureComponent<{}, PreviewState> {
             </Title>
             <Dropdown>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                Examples
+                {this.state.exampleKey}
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                {examplesKeys.map(key => (
+                  <Dropdown.Item key={key}>{key}</Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
           </PreviewTitleContainer>
           <CodeMirrorOutline>
             <CodeMirror
-              value="console.log('hello world')"
+              editorDidMount={this.__onEditorAttatched}
               options={{
                 mode: 'javascript',
                 theme,
