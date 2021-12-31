@@ -162,6 +162,9 @@ function MainBody() {
           <a href="https://www.npmjs.com/package/esreverse">
             <img alt="npm badge" src="https://img.shields.io/npm/v/esreverse.svg"/>
           </a>
+          <a href="https://twitter.com/cdz_solo" style={{ marginLeft: '16px' }}>
+            <img src="https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fcdz_solo" />
+          </a>
         </BrandContiner>
         <Paragraph>
           <SubTitle>Feature</SubTitle>
