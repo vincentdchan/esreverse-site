@@ -63,9 +63,13 @@ const HeaderContainer = styled.div`
   background-size: 5rem;
 `;
 
+const BrandContiner = styled.div`
+  padding-top: 24px;
+`;
+
 const examples = [
   'esreverse https://mui.com/ -a',
-  'esreverse https://mui.com/ -a -H "cookies: SESSION=abc"',
+  'esreverse https://nextjs.org/ -a -H "cookies: SESSION=abc"',
   'esreverse ./test.js'
 ];
 
@@ -154,6 +158,11 @@ function MainBody() {
   return (
     <>
       <BodyContainer>
+        <BrandContiner>
+          <a href="https://www.npmjs.com/package/esreverse">
+            <img alt="npm badge" src="https://img.shields.io/npm/v/esreverse.svg"/>
+          </a>
+        </BrandContiner>
         <Paragraph>
           <SubTitle>Feature</SubTitle>
           <ul>

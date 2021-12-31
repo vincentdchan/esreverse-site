@@ -11,7 +11,7 @@ specifiers:
   '@types/react-dom': ^17.0.11
   bootstrap: ^5.1.3
   codemirror: ^5.65.0
-  esreverse-web: 0.0.8
+  esreverse-web: 0.1.0
   lodash-es: ^4.17.21
   react: ^17.0.2
   react-bootstrap: ^2.0.4
@@ -30,7 +30,7 @@ devDependencies:
   '@types/react-dom': 17.0.11
   bootstrap: 5.1.3_@popperjs+core@2.11.0
   codemirror: 5.65.0
-  esreverse-web: 0.0.8
+  esreverse-web: 0.1.0
   lodash-es: 4.17.21
   react: 17.0.2
   react-bootstrap: 2.0.4_react-dom@17.0.2+react@17.0.2
@@ -869,8 +869,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /esreverse-web/0.0.8:
-    resolution: {integrity: sha512-u5OLZ07R8/Bn1OHnnCmHwr1szkzRhLndQEDwnDriCijKFmUFF6u43QlCy19IFQ4fINx+49PD0hk20HqQTI5Tow==}
+  /esreverse-web/0.1.0:
+    resolution: {integrity: sha512-aO7PEQmUHjI53uxhIuTy9cuzxD88rDaXzEbsQyWXj1Fs4/55sVeRiU32HfyFi+QCEwKsGtgJwY5+aQkkThJz9w==}
     dev: true
 
   /fill-range/7.0.1:

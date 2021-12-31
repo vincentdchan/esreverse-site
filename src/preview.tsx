@@ -3,7 +3,7 @@ import type { Editor } from 'codemirror';
 import { UnControlled as CodeMirror, Controlled as ControlledCodeMirror } from 'react-codemirror2';
 import styled from '@emotion/styled';
 import * as rjs from 'esreverse-web';
-import { debounce } from 'lodash-es';
+import { debounce, isString } from 'lodash-es';
 import { Dropdown } from 'react-bootstrap';
 import examples from './examples';
 import 'codemirror/lib/codemirror.css';
@@ -72,7 +72,9 @@ interface PreviewState {
 export function ErrorPanel(props: { message: string }) {
   return (
     <ErrorPanelContainer>
-      {props.message}
+      <pre>
+        {props.message}
+      </pre>
     </ErrorPanelContainer>
   );
 }
@@ -99,6 +101,12 @@ class Preview extends PureComponent<{}, PreviewState> {
         errorMsg: null,
       });
     } catch (err) {
+      if (isString(err.parseErrors)) {
+        this.setState({
+          errorMsg: err.parseErrors,
+        });
+        return;
+      }
       this.setState({
         errorMsg: err.toString(),
       });
@@ -110,6 +118,15 @@ class Preview extends PureComponent<{}, PreviewState> {
     const firstValue = examples[this.state.exampleKey];
     this.computeReverse(firstValue);
     this.__editor.setValue(firstValue);
+  }
+
+  onDropdownItemClicked = (key: string) => () => {
+    this.setState({
+      exampleKey: key,
+    });
+    const value = examples[key];
+    this.computeReverse(value);
+    this.__editor.setValue(value);
   }
 
   render() {
@@ -127,7 +144,7 @@ class Preview extends PureComponent<{}, PreviewState> {
 
               <Dropdown.Menu>
                 {examplesKeys.map(key => (
-                  <Dropdown.Item key={key}>{key}</Dropdown.Item>
+                  <Dropdown.Item onClick={this.onDropdownItemClicked(key)} key={key}>{key}</Dropdown.Item>
                 ))}
               </Dropdown.Menu>
             </Dropdown>
