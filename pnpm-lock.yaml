@@ -17,7 +17,7 @@ specifiers:
   react-bootstrap: ^2.0.4
   react-codemirror2: ^7.2.1
   react-dom: ^17.0.2
-  yesbuild-core: ^0.1.4
+  yesbuild-core: 0.1.5
 
 devDependencies:
   '@babel/core': 7.16.5
@@ -36,7 +36,7 @@ devDependencies:
   react-bootstrap: 2.0.4_react-dom@17.0.2+react@17.0.2
   react-codemirror2: 7.2.1_codemirror@5.65.0+react@17.0.2
   react-dom: 17.0.2_react@17.0.2
-  yesbuild-core: 0.1.4
+  yesbuild-core: 0.1.5
 
 packages:
 
@@ -610,8 +610,8 @@ packages:
       yaml: 1.10.2
     dev: true
 
-  /css-select/4.2.0:
-    resolution: {integrity: sha512-6YVG6hsH9yIb/si3Th/is8Pex7qnVHO6t7q7U6TIUnkQASGbS8tnUDBftnPynLNnuUl/r2+PTd0ekiiq7R0zJw==}
+  /css-select/4.2.1:
+    resolution: {integrity: sha512-/aUslKhzkTNCQUB2qTX84lVmfia9NyjP3WpDGtj/WxhwBzWBYUV3DgUpurHTme8UTPcPlAD1DJ+b0nN/t50zDQ==}
     dependencies:
       boolbase: 1.0.0
       css-what: 5.1.0
@@ -1032,7 +1032,7 @@ packages:
   /node-html-parser/5.2.0:
     resolution: {integrity: sha512-fmiwLfQu+J2A0zjwSEkztSHexAf5qq/WoiL/Hgo1K7JpfEP+OGWY5maG0kGaM+IFVdixF/1QbyXaQ3h4cGfeLw==}
     dependencies:
-      css-select: 4.2.0
+      css-select: 4.2.1
       he: 1.2.0
     dev: true
 
@@ -1276,8 +1276,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /yesbuild-core/0.1.4:
-    resolution: {integrity: sha512-Tm014YrpMhEx5gqYQfFIB1+eQBgsYVjE8l3Ncc6Cxu0TrLkvTGMDndCjnL6GUh1gW1JqtyWxilF+UhWLMwHZ9g==}
+  /yesbuild-core/0.1.5:
+    resolution: {integrity: sha512-UCTcUIfIKi7Vo8nw07Kmu6r5QtjHSQuPulpC6ZmxhHP9xjxRJrR7P2sUm3EaVSW5riGrIxvC1LsDYS+Z94UzsQ==}
     hasBin: true
     dependencies:
       chokidar: 3.5.2
